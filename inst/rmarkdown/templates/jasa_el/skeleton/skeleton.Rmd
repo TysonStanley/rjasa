@@ -4,6 +4,7 @@ runningtitle: Demonstration of JASA-EL
 author:
 - name: First Author*
   affil: "Department1, University1"
+  corr: 1
 - name: Second One
   affil: "Department1, University1"
 - name: Third A. Uther
@@ -32,7 +33,7 @@ Required elements of the above `yaml` are:
 * `bibliography`: BibTeX `.bib` file
 * `bibliographystyle`: jasaauthyear2 or jasanum2
 
-All of the rest of the document is just like regular RMarkdown syntax (with the occassional use of \LaTex code).
+All of the rest of the document is just like regular RMarkdown syntax (with the occassional use of \LaTeX code).
 
 # Introduction
 

@@ -33,12 +33,13 @@ $preamble$
 
 $for(author)$
  \author{$author.name$}
+
+ $if(author.corr)$
+  \correspondingauthor
+ $endif$
+
  \affiliation{$author.affil$}
 $endfor$
-
-$if(corrauth)$
- \correspondingauthor{$corrauth$}
-$endif$
 
 $if(email)$
  \email{$email$}
