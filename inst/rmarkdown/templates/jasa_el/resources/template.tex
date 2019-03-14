@@ -29,7 +29,7 @@ $preamble$
 \title[$runningtitle$]{$title$}
 
 \author{$for(author)$$author.name$\affilnum{$author.num$}$sep$, $endfor$}
-\affiliation{$for(address)$\affilnum{$address.num$}{$address.org$}$sep$\\$endfor$}
+\affiliation{$for(address)$$address.num$$address.org$$sep$\\$endfor$}
 
 $if(corrauth)$
 \correspondingauthor{$corrauth$}
