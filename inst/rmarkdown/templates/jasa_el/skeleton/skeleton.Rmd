@@ -1,14 +1,14 @@
 ---
 title: A demonstration of the \LaTeX class file for JASA-EL manuscripts with Rmarkdown
-runningtitle: Demonstration of JASA-EL
+runningtitle: JASA-EL RMarkdown
 author:
-- name: First Author*
-  affil: "Department1, University1"
+- name: First Author
+  affil: "Department of Communication, University1"
   corr: 1
-- name: Second One
-  affil: "Department1, University1"
-- name: Third A. Uther
-  affil: "Department2, University2"
+- name: Second Author
+  affil: "Department of Communication, University1"
+- name: Third Auther
+  affil: "Department of Statistics, University2"
 corrauth: "Corresponding author name, This is sample corresponding address."
 email: correspondingauthor@protonmail.com
 abstract: "Put your abstract here. Abstracts are limited to 100 words for JASA-EL articles. Please no personal pronouns, also please do not use the words “new” and/or “novel” in the abstract. An article usually includes an abstract, a concise summary of the work covered at length in the main body of the article."
@@ -20,33 +20,38 @@ output:
     keep_tex: yes
 ---
 
+<!--
+This is a comment in RMarkdown
 
+Background:
+  Required elements of the above `yaml` are:
 
-Required elements of the above `yaml` are:
-
-* `title`: Title
-* `runningtitle`: The running head (a short version of the title)
-* `author`: List of author(s) containing `name` and `affil` (the affiliation of each author)
-* `corrauth`: Corresponding author's name and address.
-* `email`: Correspondence email
-* `abstract`: Limited to 200 words
-* `bibliography`: BibTeX `.bib` file
-* `bibliographystyle`: jasaauthyear2 or jasanum2
-
-All of the rest of the document is just like regular RMarkdown syntax (with the occassional use of \LaTeX code).
+  * `title`: Title
+  * `runningtitle`: The running head (a short version of the title)
+  * `author`: List of author(s) containing `name` and `affil` (the affiliation of each author)
+  * `corrauth`: Corresponding author's name and address.
+  * `email`: Correspondence email
+  * `abstract`: Limited to 200 words
+  * `bibliography`: BibTeX `.bib` file
+  * `bibliographystyle`: jasaauthyear2 or jasanum2
+  
+  All of the rest of the document is just like regular RMarkdown syntax (with the occassional use of \LaTeX code).
+-->
 
 # Introduction
 
-Intro
+Start your document here, briefly introducing the topic at hand.
 
 # Methods
 
-All those methods
+Report all those methods so someone could completely reproduce the results.
 
 # Results
 
-Give the results up
+Provide the results, clearly, concisely, and beautifully.
 
 # Discussion
+
+The discussion of the results is how we will finish this thing off.
 
 
