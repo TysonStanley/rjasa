@@ -28,25 +28,29 @@ $preamble$
 
 \title[$runningtitle$]{$title$}
 
-\author{$for(author)$$author.name$\affilnum{$author.num$}$sep$, $endfor$}
-\affiliation{$for(address)$$address.num$$address.org$$sep$\\$endfor$}
+$for(author)$
+ \author{$author.name$$author.num$}
+$endfor$
+$for(address)$
+ \affiliation{$address.num$$address.org$$sep$\\}
+$endfor$
 
 $if(corrauth)$
-\correspondingauthor{$corrauth$}
+ \correspondingauthor{$corrauth$}
 $endif$
 
 $if(email)$
-\email{$email$}
+ \email{$email$}
 $endif$
 
 $if(abstract)$
-\begin{abstract}
+ \begin{abstract}
 $abstract$
-\end{abstract}
+ \end{abstract}
 $endif$
 
 $if(keywords)$
-\keywords{$keywords$}
+ \keywords{$keywords$}
 $endif$
 
 
