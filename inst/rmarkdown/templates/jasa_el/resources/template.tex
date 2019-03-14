@@ -1,0 +1,68 @@
+%% For Use With JASA-EL Template
+%% Added to RMarkdown by Tyson S. Barrett, PhD
+
+% Document class and options
+\documentclass[$if(documentclass)$$documentclass$$else$article$endif$$if(classoption)$,$classoption$$endif$]{JASA-El}
+
+% Pandoc header
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+$preamble$
+
+\usepackage{endnotes}% if authoryear option is used
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+\usepackage{amsmath,amsfonts}% popular packages from the American Mathematical Society
+\usepackage{latexsym}% latex symbols
+\usepackage{lineno}% for line numbers
+\usepackage{array}% for tables
+\usepackage{ulem}% for underlining
+\usepackage{xcolor}%  for color declarations
+\usepackage{hyperref}% for hypertext linking
+
+
+\begin{document}
+
+\title[$runningtitle$]{$title$}
+
+\author{$for(author)$$author.name$\affilnum{$author.num$}$sep$, $endfor$}
+\affiliation{$for(address)$\affilnum{$address.num$}{$address.org$}$sep$\\$endfor$}
+
+$if(corrauth)$
+\correspondingauthor{$corrauth$}
+$endif$
+
+$if(email)$
+\email{$email$}
+$endif$
+
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+
+$if(keywords)$
+\keywords{$keywords$}
+$endif$
+
+
+
+\maketitle
+
+$body$
+
+$if(bibliography)$
+\bibliographystyle{$bibliographystyle$}
+\bibliography{$bibliography$}
+$endif$
+
+$for(include-after)$
+$include-after$
+
+$endfor$
+
+\end{document}
