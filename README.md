@@ -22,3 +22,5 @@ remotes::install_github("tysonstanley/rjasa")
 
 Using the template, `rjasa` will provide a `.tex` file and a nicely
 formatted `.pdf` file. This package is still under active development.
+
+![Example1](inst/example1.png)
