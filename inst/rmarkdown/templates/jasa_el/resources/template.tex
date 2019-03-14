@@ -32,11 +32,8 @@ $preamble$
 \title[$runningtitle$]{$title$}
 
 $for(author)$
- \author{$author.name$$author.num$}
-$endfor$
-
-$for(address)$
- \affiliation{$address.num$$address.org$}
+ \author{$author.name$}
+ \affiliation{$author.affil$}
 $endfor$
 
 $if(corrauth)$

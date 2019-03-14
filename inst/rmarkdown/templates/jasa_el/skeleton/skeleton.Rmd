@@ -3,19 +3,14 @@ title: A demonstration of the \LaTeX class file for JASA-EL manuscripts with Rma
 runningtitle: Demonstration of JASA-EL
 author:
 - name: First Author*
-  num: "1"
+  affil: "Department1, University1"
 - name: Second One
-  num: "1"
+  affil: "Department1, University1"
 - name: Third A. Uther
-  num: "2"
-address:
-- num: "1"
-  org: Department of Incredible Research, University A, City A, Country A
-- num: "2"
-  org: Department of Applied Things, University B, City B, Country B
+  affil: "Department2, University2"
 corrauth: "Corresponding author name, This is sample corresponding address."
 email: correspondingauthor@protonmail.com
-abstract: "A beautifully written abstract."
+abstract: "Put your abstract here. Abstracts are limited to 100 words for JASA-EL articles. Please no personal pronouns, also please do not use the words “new” and/or “novel” in the abstract. An article usually includes an abstract, a concise summary of the work covered at length in the main body of the article."
 keywords: "keywords"
 bibliography: bibfile
 bibliographystyle: jasaauthyear2
@@ -29,8 +24,8 @@ output:
 Required elements of the above `yaml` are:
 
 * `title`: Title
-* `runningtitle`: Author last names, use _et al._ if there are three or more authors.
-* `author`: List of author(s) containing `name` and `num`
+* `runningtitle`: The running head (a short version of the title)
+* `author`: List of author(s) containing `name` and `affil` (the affiliation of each author)
 * `corrauth`: Corresponding author's name and address.
 * `email`: Correspondence email
 * `abstract`: Limited to 200 words
