@@ -74,12 +74,12 @@ $preamble$
 
 $for(author)$
  \author{$author.name$}
+ $if(author.email)$
+  \thanks{$author.email$}
+ $endif$
  $for(author.affil)$
   \affiliation{$author.affil.location$}
  $endfor$
-  $if(author.email)$
-  \thanks{$author.email$}
- $endif$
 
 $endfor$
 
