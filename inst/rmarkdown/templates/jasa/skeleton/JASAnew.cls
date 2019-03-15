@@ -1,19 +1,19 @@
 %% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% JASA-EL.cls                                   %%
-%% September 19, 2017                            %%
+%% JASAnew.cls                                   %%
+%% July 25, 2017                                 %%
 %% Copyright 2017 Acoustical Society of America  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% JASA-El.cls
+%% JASAnew.cls
 %% Developed by Amy Hendrickson
 %% TeXnology Inc
 %% http://www.texnology.com
 %% amyh@texnology.com
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\currversion{.999}
+\def\currversion{1.0}
 
 %%
 %%    These files are distributed
@@ -50,7 +50,7 @@
 %%% This work has the LPPL maintenance status `maintained'.
 %
 %%% The Current Maintainer of this work is Arthur Newhall <anewhall@whoi.edu> 
-%%% This work consists of the file JASA-EL.cls
+%%% This work consists of the file JASAnew.cls
 
 %%%     copyright       = "Copyright (C) 2017 Acoustical Society of America
 %%%
@@ -79,10 +79,10 @@
 %%%     abstract        = "formatter for JASA journal submissions",
 %%%  }
 
-\ProvidesClass{JASA-El}%%%
- [2017/08/10 Version 1, markup document class]%
+\ProvidesClass{JASAnew}%%%
+ [2017/03/27 Version 1, markup document class]%
 {}
-\ClassInfo{JASA-El}{%
+\ClassInfo{JASAnew}{%
 ^^J
 Written by Amy Hendrickson, amyh@texnology.com, http://www.texnology.com
 ^^J
@@ -103,40 +103,50 @@ revtex4-1.cls^^J^^J}\stop
 
 % These are the General document style options, 2 choices
 
+%% For Submission of your paper:
+%   preprint	: onecolumn, doublespace, 12pt fonts
+
+%% For checking to see how many pages your paper will have when published
+%% (approximately)
+%   reprint	: twocolumn, single space, optional 12pt fonts
+
+% Default document style option:
+% preprint
+
 \newif\ifmanuscript
 \newif\iftwelvepoint
 \newif\ifdoublespace
 \newif\if@two@col
 \newif\ifnumlines
 
-\newif\iftrack
-\DeclareOption{trackchanges}{\global\tracktrue}
-
 %% Manuscript is double spaced and single columned.
-%% This is the default JASA-EL style.
-\newif\ifjasael
-\DeclareOption{jasael}{\global\manuscripttrue\twelvepointtrue
+ \DeclareOption{preprint}{\global\manuscripttrue\twelvepointtrue
 \@two@colfalse\doublespacetrue}%
-\DeclareOption{JASAel}{\global\manuscripttrue\twelvepointtrue
-\@two@colfalse\doublespacetrue}%
+
+%% Preprints are single spaced and double columned.
+\newif\ifpreprint
+ \DeclareOption{reprint}{\global\manuscriptfalse\twelvepointfalse
+\doublespacefalse\global\timestrue}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Additional feature options:
 
+%      times	: uses times font as the default
+%      trackchanges : required to see the revision mark up and print output
+%      12pt ; for authors to check length of paper
+%      authoryearcite ; for setting citations and bib entries to author/year style
+
+%% add line numbers to reprint
 \newif\ifturnonlinenumbers
-\DeclareOption{TurnOnLineNumbers}{\global\turnonlinenumberstrue\global\numlinestrue}
+\DeclareOption{TurnOnLineNumbers}{\global\turnonlinenumberstrue}
 %% in case someone forgets to put in the caps:
-\DeclareOption{turnonlinenumbers}{\global\turnonlinenumberstrue
-\global\numlinestrue
-}
-%% Turn Off Line numbers
-\newif\ifturnofflinenumbers
-\DeclareOption{turnofflinenumbers}{\global\turnofflinenumberstrue
-\global\numlinesfalse
-}
+\DeclareOption{turnonlinenumbers}{\global\turnonlinenumberstrue}
 
 \newif\iftimes
 \DeclareOption{times}{\global\timestrue}
+
+\newif\iftrack
+\DeclareOption{trackchanges}{\global\tracktrue}
 
 \DeclareOption{12pt}{\global\twelvepointtrue}
 
@@ -151,26 +161,35 @@ revtex4-1.cls^^J^^J}\stop
 \DeclareOption{numberedrefs}{%
 \global\authoryearfalse}
 
-%% Default
 \global\authoryeartrue
 
 \newif\ifgrouped
 \DeclareOption{authaffil}{%
 \global\groupedtrue}
 
+
 %% End Options
 
-%% JASAel is default style
-
-\ExecuteOptions{JASAel,turnonlinenumbers}
-
+%% manuscript is default style
+\ExecuteOptions{preprint}
 
 \ProcessOptions	
 
 %%
 %%%%%%%%%%%%%
 %% Passing options to revtex while loading:
-        \LoadClass[onecolumn, amsmath, amssymb, aip,floatfix]{revtex4-1}    
+  \ifmanuscript %% preprint style
+        \LoadClass[onecolumn, amsmath, amssymb, preprint, aip,floatfix]{revtex4-1}    
+  \else % reprint style
+%% no track changes allowed in Reprint style
+\iftrack
+\global\trackfalse 
+\typeout{^^J^^J Invalid Option! Track Changes not allowed in Reprint Style!^^J^^J}
+\stop
+\fi
+       \LoadClass[twocolumn, amsmath, amssymb,reprint,aip,floatfix]{revtex4-1}    
+  \fi
+
 
 %%%%%%%%%%%%%
 %
@@ -217,12 +236,20 @@ final=true
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+%%% preprint is 12pt, reprint is 10pt, unless 12pt option is used
+
 %% Modified bk12.clo
 
+%% for section heads
+\newcommand\bigsmall{\@setfontsize\bigsmall{9.5pt}{12}}
 
-\iftwelvepoint %% default JASA-EL style
+\iftwelvepoint
 \renewcommand\normalsize{%
+\ifdoublespace % manuscript
    \@setfontsize\normalsize\@xiipt{20}%
+\else
+   \@setfontsize\normalsize\@xiipt{13}%
+\fi %% end doublespace/no double space
    \abovedisplayskip 12\p@ \@plus3\p@ \@minus7\p@
    \abovedisplayshortskip \z@ \@plus3\p@
    \belowdisplayshortskip 6.5\p@ \@plus3.5\p@ \@minus3\p@
@@ -232,9 +259,15 @@ final=true
 \normalsize
 
 %% for section heads
+\renewcommand\bigsmall{\@setfontsize\bigsmall{9.5pt}{12}}
 
 \renewcommand\small{%
+\ifdoublespace % manuscript
    \@setfontsize\small\@xipt{20}%
+\else
+   \@setfontsize\small\@xipt{13.6}%
+\fi
+%% end doublespace/no double space
    \abovedisplayskip 11\p@ \@plus3\p@ \@minus6\p@
    \abovedisplayshortskip \z@ \@plus3\p@
    \belowdisplayshortskip 6.5\p@ \@plus3.5\p@ \@minus3\p@
@@ -246,7 +279,11 @@ final=true
 }
 
 \renewcommand\footnotesize{%
+\ifdoublespace % manuscriptstyle
    \@setfontsize\footnotesize\@xpt{18}
+\else
+   \@setfontsize\footnotesize\@xpt\@xiipt
+\fi
    \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
    \abovedisplayshortskip \z@ \@plus3\p@
    \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
@@ -256,15 +293,74 @@ final=true
                \itemsep \parsep}%
    \belowdisplayskip \abovedisplayskip
 }
-\ifdoublespace % JASA-El style
+\ifdoublespace % manuscript style
 \renewcommand\scriptsize{\@setfontsize\scriptsize\@viiipt{14}}
 \renewcommand\tiny{\@setfontsize\tiny\@vipt{10}}
 \renewcommand\large{\@setfontsize\large\@xivpt{18}}
 \renewcommand\Large{\@setfontsize\Large\@xviipt{22}}
 \renewcommand\LARGE{\@setfontsize\LARGE\@xxpt{25}}
 \renewcommand\huge{\@setfontsize\huge\@xxvpt{30}}
+\else
+\renewcommand\scriptsize{\@setfontsize\scriptsize\@viiipt{9.5}}
+\renewcommand\tiny{\@setfontsize\tiny\@vipt\@viipt}
+\renewcommand\large{\@setfontsize\large\@xivpt{22}}
+\renewcommand\Large{\@setfontsize\Large\@xviipt{24}}
+\renewcommand\LARGE{\@setfontsize\LARGE\@xxpt{28}}
+\renewcommand\huge{\@setfontsize\huge\@xxvpt{30}}
+\newcommand\titlefont{\@setfontsize\titlefont{17pt}{18}}
 
+\fi
 \let\Huge=\huge
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\else %% not twelvepoint, now tenpoint
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% no doublespace here, because the only doublespace is in `manuscript style' which is 12pt
+
+\renewcommand\normalsize{%
+   \@setfontsize\normalsize\@xpt{11.5}%
+   \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
+   \abovedisplayshortskip \z@ \@plus3\p@
+   \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
+   \belowdisplayskip \abovedisplayskip
+   \let\@listi\@listI}
+
+\normalsize
+
+
+\renewcommand\small{%
+   \@setfontsize\small\@ixpt{12}%
+   \abovedisplayskip 8.5\p@ \@plus3\p@ \@minus4\p@
+   \abovedisplayshortskip \z@ \@plus2\p@
+   \belowdisplayshortskip 4\p@ \@plus2\p@ \@minus2\p@
+   \def\@listi{\leftmargin\leftmargini
+               \topsep 4\p@ \@plus2\p@ \@minus2\p@
+               \parsep 2\p@ \@plus\p@ \@minus\p@
+               \itemsep \parsep}%
+   \belowdisplayskip \abovedisplayskip
+}
+
+\renewcommand\footnotesize{%
+   \@setfontsize\footnotesize\@viiipt{9}%
+   \abovedisplayskip 6\p@ \@plus2\p@ \@minus4\p@
+   \abovedisplayshortskip \z@ \@plus\p@
+   \belowdisplayshortskip 3\p@ \@plus\p@ \@minus2\p@
+   \def\@listi{\leftmargin\leftmargini
+               \topsep 3\p@ \@plus\p@ \@minus\p@
+               \parsep 2\p@ \@plus\p@ \@minus\p@
+               \itemsep \parsep}%
+   \belowdisplayskip \abovedisplayskip
+}
+
+%% Standard 10pt font sizes
+\renewcommand\scriptsize{\@setfontsize\scriptsize\@viipt\@viiipt}
+\renewcommand\tiny{\@setfontsize\tiny\@vpt\@vipt}
+\renewcommand\large{\@setfontsize\large\@xiipt{14}}
+\renewcommand\Large{\@setfontsize\Large\@xivpt{18}}
+\renewcommand\LARGE{\@setfontsize\LARGE\@xviipt{22}}
+\newcommand\titlefont{\@setfontsize\titlefont{17pt}{18}}
+\renewcommand\huge{\@setfontsize\huge\@xxpt{25}}
+\renewcommand\Huge{\@setfontsize\Huge\@xxvpt{30}}
+
 \fi
 
 \newcommand\xsmall{\@setfontsize\xsmall\@ixpt{11}}
@@ -424,6 +520,7 @@ changenum\the\refchangenumber\endcsname{Replaced: [#1]
 \fi\fi
 %\thispagestyle{empty}
 }
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Figlines for positioning multiple illustrations in 
 %% one figure environment.
@@ -486,43 +583,31 @@ changenum\the\refchangenumber\endcsname{Replaced: [#1]
 }}
 
 
-
 %%%%%%%%%% End Fig line Macros %%%%%%%%%%
 
-\def\@hangfrom@section#1#2#3{\@hangfrom{#1#2}{#3}}%
-\def\@hangfroms@section#1#2{#1{#2}}%
+%% Section heads rewritten for preprint
+\def\section{\@startsection {section}{1}{\z@ }{0.8cm \@plus .5ex \@minus .2ex}{0.5cm}
+{\boldmath\normalfont \small \bfseries }}
 
-\def\xsection{section}
-\def\@seccntformat #1{\csname
-the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
+\def\sectionfont{\small\bfseries}
+\def\subsection{\@startsection {subsection}{2}{\z@ }{.8cm \@plus .5ex \@minus .2ex}{.5cm}
+{\boldmath\normalfont \small \bfseries }}
 
-\def\thesection{\arabic{section}}
-\def\thesubsection{\thesection.\arabic{subsection}}
-\def\thesubsubsection{\thesubsection.\arabic{subsubsection}}
-\def\theparagraph{\thesubsubsection.\arabic{paragraph}}
-
-%% Section heads 
-\def\section{\goodbreak
-\@startsection {section}{1}{\z@ }{5pt}{1sp}
-{\boldmath\bfseries}}
-
-\def\sectionfont{\normalsize\bfseries}
-
-\def\subsection{\goodbreak
-\@startsection
-{subsection}{2}{\z@ }{3pt}{1sp}
-{\normalsize\it}}
-
-\def\subsubsection{\@startsection {subsubsection}{3}{\parindent}{3pt
-\@plus 1ex \@minus .2ex}{1sp} {\boldmath\normalfont \normalsize \itshape }}
+\def\subsubsection{\@startsection {subsubsection}{3}{\z@ }{.8cm
+\@plus 1ex \@minus .2ex}{.5cm} {\boldmath\normalfont \small \bfseries\itshape }}
 
 \def\paragraph{\@startsection {paragraph}{4}{\parindent }{\z@ }{-1em}{\normalfont \normalsize 
 \itshape }}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%% used for both preprint and reprint:
 \newcount\currentpage
 \def\setpagenumber#1{\ifmanuscript\else\global\currentpage=#1\relax\fi}
+
+%% not for author use:
+% \def\volume#1{\def\thevolume{#1}}
+% \def\volnumber#1{\def\thevolnumber{#1}}
 
 \let\savedocument\document
 \def\document{\savedocument\ifnum\currentpage>0\setcounter{page}{\the\currentpage}\fi}
@@ -548,14 +633,9 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
 \def\acknowledgments{\section*{Acknowledgments}}
 \def\endacknowledgments{\vskip12pt}
 
-\def\acknowledgment{\section*{Acknowledgment}}
-\def\endacknowledgments{\vskip12pt}
-
 \def\frontmatter@abstractfont{%
-\ifturnofflinenumbers\else
 \global\numlinestrue
 \linenumbers
-\fi
 \normalsize
  \adjust@abstractwidth
 }%
@@ -571,16 +651,9 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
 \H@@footnotetext  
 \@ifnextchar [\Hy@maketitle@optarg {\HyOrg@maketitle
 \Hy@maketitle@end
-}\ifmanuscript\ifturnonlinenumbers
-\ifturnofflinenumbers\else
-\linenumbers\fi\fi
-\else
-\ifturnonlinenumbers
-\ifturnofflinenumbers\else
-%\linenumbersep=4pt
-\linenumbers\fi\fi%
-\fi%% end if manuscript
-}
+}\ifmanuscript\linenumbers\else\ifturnonlinenumbers
+\linenumbersep=4pt
+\linenumbers\fi\fi}
 
 \ifmanuscript
 \def\ps@titlepage{
@@ -594,9 +667,11 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
 \pagestyle{titlepage}
 
 
+
 \AtBeginDocument{\global\reprintcolumnwidth=246pt
-\def\arraystretch{1.2}
-\ifgrouped\clo@groupedaddress\fi}
+ %%  in response to feedback asking for \columnwidth to be the
+                         %%  same with preprint and reprint styles; author should use \reprintcolumnwidth.
+\def\arraystretch{1.2}\ifgrouped\clo@groupedaddress\fi}
 
 \def\@ssect@ltx#1#2#3#4#5#6[#7]#8{%
   \def\H@svsec{\phantomsection}%
@@ -622,11 +697,46 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
       \addcontentsline{toc}{#1}{\protect\numberline{}#8}%
     }%
   }%
-\@xsect{#5}%
+  \@xsect{#5}%
 }
 
-\fi% end \ifmanuscript
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% These commands are for reprint +++
 
+\else
+
+
+\def\frontmatter@authorformat{%
+ \frontmatter@@indent
+ \sffamily
+\advance\baselineskip\p@
+\parskip8pt\relax %11.5\p@\relax
+}%
+
+%% Section heads rewritten for Reprint
+
+\def\section{\@startsection {section}{1}{\z@ }{16pt}
+{7pt}
+{\noindent\boldmath \bigsmall \bfseries\sffamily }}
+
+\def\sectionfont{\bigsmall\bfseries\sffamily}
+
+\def\subsection{\@startsection {subsection}{2}{\z@ }{16pt}{7pt}
+{\noindent\boldmath\bigsmall\normalfont  \bfseries\sffamily }}
+
+\def\subsubsection{\@startsection {subsubsection}{3}{\z@ }{14pt
+minus 2pt}{6pt} {\noindent\boldmath\normalsize\normalfont
+%\small 
+\bfseries\itshape\sffamily }}
+
+\def\paragraph{\@startsection {paragraph}{4}{\parindent }{3pt}{-18pt}{\small
+%\bfseries
+\itshape
+\sffamily }}
+
+\parskip=0pt
+\parindent=18pt
+\def\@seccntformat#1{\csname the#1\endcsname.\hskip2pt\relax}
 
 %% a bit more vertical space between horizontal lines, makes table more readable
 \AtBeginDocument{\def\arraystretch{1.2}\ifgrouped\clo@groupedaddress\fi}
@@ -663,28 +773,14 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
 
 
 \def\frontmatter@abstractfont{%
-\noindent{\bf Abstract:}\ \ 
 \normalsize
  \adjust@abstractwidth
-\ifturnofflinenumbers\else
-\linenumbers\fi
 }%
-
 
 
 %% default values
 \copyrightinfo{Acoustical Society of America.}
 \copyrightyear{\the\year}
-
-\def\frontmatter@authorformat{\sffamily\bfseries}
-
-\def\frontmatter@author@produce@group{\begingroup \let \@author@present \@author@present@group 
-\frontmatter@authorformat \frontmatterverbose@sw 
-{\typeout {\string \frontmatter@author@produce@group :}
-\say \@AAC@list \say \@AFF@list \say \@AFG@list }{}\let \AU@temp \@empty 
-\set@listcomma@list \AU@temp \def \CO@opr {\@collaboration@present \AU@temp }
-\let \AFG@opr \affils@present@group  \let \@listcomma \relax \@AFG@list 
-\frontmatter@footnote@produce \par \endgroup \frontmatter@authorbelow}
 
 %% need all this just to get line in below abstract!
 \def\titleblock@produce{%
@@ -702,19 +798,6 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
   }{%
    \frontmatter@author@produce@script
   }%
-\ifgrouped\else
-\begin{center}
-\vskip-6pt
-\loopemailnumber=1
-\it
-\loop
-\ifnum\loopemailnumber<\emailnumber
-\expandafter\csname email\the\loopemailnumber\endcsname,\\[-6pt]
-\global\advance\loopemailnumber by 1
-\repeat
-\expandafter\csname email\the\loopemailnumber\endcsname
-\end{center}
-\fi
   \frontmatter@RRAPformat{%
    \expandafter\produce@RRAP\expandafter{\@date}%
    \expandafter\produce@RRAP\expandafter{\@received}%
@@ -724,12 +807,12 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
   }%
   \frontmatter@abstract@produce
  \vskip-4pt
- \noindent\normalsize\hskip33pt\hbox to
- \textwidth{\footnotesize\copyright\ \thecopyrightyear\
- \thecopyrightinfo\hfill}
+ \noindent\normalsize\hskip.5in\hbox to 402pt{{\it\copyright\thecopyrightyear\
+ \thecopyrightinfo}\qquad
+ [\href{http://dx.doi.org\theDOI}{http://dx.doi.org\theDOI}]\hfill}
 \vskip9pt
-%\noindent\normalsize\hskip.5in\hbox to402pt{[\theeditor]\hfill Pages:
-%\@startpage--\pageref{finalpage}}\vskip20pt
+\noindent\normalsize\hskip.5in\hbox to402pt{[\theeditor]\hfill Pages:
+\@startpage--\pageref{finalpage}}\vskip20pt
   \@ifx@empty\@pacs{}{%
    \@pacs@produce\@pacs
   }%
@@ -739,6 +822,7 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
   \par
   \frontmatter@finalspace
  \endgroup
+\pagestyle{reprint}
 }%
 
 
@@ -764,10 +848,19 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
 \advance\textheight 24pt
 
 
+\def\ps@titlepage{
+\def\@oddhead{\hfill}\let\@evenhead\@oddhead
+\def\@evenfoot{{\footnotesize\sf\ifodd\c@page\else\the\c@page\qquad\fi
+J. Acoust. Soc. Am.\ \ /\ \ \today
+\hfill
+\@shorttitle \ifodd\c@page\qquad\the\c@page\fi}}
+\let\@oddfoot\@evenfoot
+}
+
 
 \pagestyle{titlepage}
 \thispagestyle{titlepage}
-
+\fi
 
 
 \def\etal{{\footnotesize\sffamily\itshape et al.}}
@@ -778,21 +871,25 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
 \def\select@language#1{}
 
 
-%% Needed for JASA-EL
- \let\saveenddocument\enddocument
+\let\saveenddocument\enddocument
 
- \def\enddocument{%
+\def\enddocument{%
 \listofchanges
- \ifmanuscript\else
- \newpage
- \phantomsection
- \ \label{finalpage}%% to be able to hyperlink to final page
- \fi
- \saveenddocument
- }%
+\ifmanuscript\else
+\newpage
+\phantomsection
+\ \label{finalpage}%% to be able to hyperlink to final page
+\fi
+\saveenddocument
+}%
 
 
 \let\undefinedpagestyle\relax
+
+
+
+\def\preprint#1{\def\thepreprint{#1}}
+\let\thepreprint\relax
 
 % get rid of error message
 \ifauthoryear
@@ -812,19 +909,14 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% bibliography, endnotes if authoryear
 
-\def\refname{References and links}
-
 \let\savethebibliography\thebibliography
 \def\@theenmark{0}
-
-
 
 \ifauthoryear
 \bibliographystyle{jasaauthyear2}
 \def\bibhang{8pt}
 \let\bibsection\relax
-\def\thebibliography#1{\section*{References and links}
-\theendnotes\ 
+\def\thebibliography#1{\theendnotes\ 
 \savethebibliography{#1}
 \global\advance\c@NAT@ctr by \@theenmark
 }
@@ -834,7 +926,7 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
 \relax}
 \else
 \bibliographystyle{jasanum2}
-\def\@bibstyle{jasanum2}
+\def\@bibstyle{jasanum2}%apsrev4-1}%
 \def\thebibliography#1{\savethebibliography{#1}\advance\parskip3pt\relax}
 \def\endthebibliography{ \edef\@currentlabel{\arabic{NAT@ctr}}%
  \label{LastBibItem}\relax}
@@ -868,6 +960,8 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
 \let\footnote\endnote
 \fi
 
+
+
 \def\enoteheading{\vskip24pt}
 
 \def\notesname{}
@@ -877,11 +971,89 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
 
 \textfloatsep=12pt
 
+\def\dodoi#1{doi: \href{http://dx.doi.org/#1}{\nolinkurl{#1}}}
 \def\dourl#1{\href{http://#1}{\nolinkurl{#1}}}
 
+
+
+
+\def\appendixname{APPENDIX}
+
+
+\def\@appendixcntformat#1{\appendixname\ \csname
+thesection\endcsname: }%
+
+\def\appendixsection{\x@startsection {section}{1}{\z@ }{0.8cm \@plus
+1ex \@minus .2ex}{0.5cm}  {\sectionfont}}
+
+%% this is a fix for people with hyperref older than 2011, to prevent an error
+\expandafter\ifx\csname Hy@AlphNoErr\endcsname\relax 
+\def\Hy@AlphNoErr#1{\ifnum \value {#1}>26 Alph\number \value{#1}
+\else  \ifnum \value {#1}<1 Alph\number \value {#1}
+\else \Alph {#1}\fi \fi}%
+\fi
+
+\def\appendix{%
+\let\@sectioncntformat\@appendixcntformat
+\let\section\appendixsection
+\@ifundefined{chapter}{\gdef \theHsection {\Hy@AlphNoErr {section}}}
+{\gdef \theHchapter {\Hy@AlphNoErr {chapter}}}
+\xdef \Hy@chapapp {\Hy@appendixstring }\HyOrg@appendix}
+
+
+\def\x@startsection#1#2#3#4#5#6{%
+  \if@noskipsec \leavevmode \fi
+  \par
+  \@tempskipa #4\relax
+  \@afterindenttrue
+  \ifdim \@tempskipa <\z@
+    \@tempskipa -\@tempskipa \@afterindentfalse
+  \fi
+  \if@nobreak
+    \everypar{}%
+  \else
+    \addpenalty\@secpenalty\addvspace\@tempskipa
+  \fi
+  \@ifstar
+    {\@ssect{#3}{#4}{#5}{#6}}%
+    {\@dblarg{\x@sect{#1}{#2}{#3}{#4}{#5}{#6}}}}
+
+\def\x@sect#1#2#3#4#5#6[#7]#8{%
+  \ifnum #2>\c@secnumdepth
+    \let\@svsec\@empty
+  \else
+    \refstepcounter{#1}%
+    \protected@edef\@svsec{\@appendixcntformat{#1}\relax}%
+  \fi
+  \@tempskipa #5\relax
+  \ifdim \@tempskipa>\z@
+    \begingroup
+      #6{%
+        \@hangfrom{\hskip #3\relax\@svsec
+}%
+%%  make appendix title be uppercase:
+         \interlinepenalty \@M \uppercase{#8}\@@par}%
+    \endgroup
+    \csname #1mark\endcsname{#7}%
+    \addcontentsline{toc}{#1}{%
+      \ifnum #2>\c@secnumdepth \else
+        \protect\numberline{\csname the#1\endcsname}%
+      \fi
+   #7}%
+  \else
+    \def\@svsechd{%
+      #6{\hskip #3\relax
+      \@svsec #8}%
+      \csname #1mark\endcsname{#7}%
+      \addcontentsline{toc}{#1}{%
+        \ifnum #2>\c@secnumdepth \else
+          \protect\numberline{\csname the#1\endcsname}%
+        \fi
+        #7}}%
+  \fi
+  \@xsect{#5}}
+
 \def\@sect@ltx#1#2#3#4#5#6[#7]#8{%
-%% added for JASA-EL:
- \@afterheading\@afterindentfalse
   \@ifnum{#2>\c@secnumdepth}{%
     \def\H@svsec{\phantomsection}%
     \let\@svsec\@empty
@@ -899,19 +1071,14 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
                  \csname @#1cntformat\endcsname
     }%
   }%
-\edef\@currentlabel{\csname the#1\endcsname}
   \@tempskipa #5\relax
   \@ifdim{\@tempskipa>\z@}{%
     \begingroup
       \interlinepenalty \@M
-%% added for JASA-EL:
-\noindent      
-#6{%
+      #6{%
        \@ifundefined{@hangfrom@#1}{\@hang@from}{\csname @hangfrom@#1\endcsname}%
-       {\hskip#3\relax\H@svsec}{\@svsec }{#8}%
+       {\hskip#3\relax\H@svsec}{\@svsec}{#8}%
       }%
-%% added for JASA-EL:
-\vskip-\parskip
       \@@par
     \endgroup
     \@ifundefined{#1mark}{\@gobble}{\csname #1mark\endcsname}{#7}%
@@ -944,31 +1111,22 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% This is to make ) after thanks but not after affiliation or email markers.
+%% This is to make ) after email but not after affiliation markers.
 
 \def\frontmatter@makefnmark{%
  \@textsuperscript{%
   \normalfont\@thefnmark%(
-\ifthanks)%\global\thanksfalse
-\fi%
+\ifemail)\global\emailfalse\fi%
 }%
 }%
 
+\newif\ifemail
+\renewcommand*\email[1][]{\begingroup\global\emailtrue\sanitize@url\@email{#1}}%
 
-\newcount\emailnumber
-\newcount\loopemailnumber
-\def\email#1{\global\advance\emailnumber by 1
-\expandafter\gdef\csname email\the\emailnumber\endcsname{#1}}
-
-\newif\ifthanks
-\renewcommand*\thanks[1][]{\begingroup
-\global\thankstrue\sanitize@url\@thanks{#1}}%
-
-%% This is at the bottom of the page
-\def\@thanks#1#2{\endgroup
- \@AF@join{#1%$^{)}$
-{#2}}%
-}
+\def\@email#1#2{%
+ \endgroup
+ \@AF@join{#1$^{)}$\href{mailto:#2}{#2}}%
+}%
 
 %% Authors should use \citep. This will make the results the same
 %% if they forget.
@@ -981,90 +1139,15 @@ the#1\endcsname\def\one{#1}\ifx\one\xsection.\fi\ }
 \newdimen\reprintcolumnwidth
 \global\reprintcolumnwidth=246pt
 
-
-%%%%%%%%%%%%%%%%%%
-%% New for JASA-El
-
-\textwidth=6.5in
-\advance\textheight-.8in
-
-\def\correspondingauthor{\thanks{Author to whom correspondence should
-be addressed.}}
-
-
-\ifgrouped
-\let\saveaffiliation\affiliation
-\newcount\mostrecentemail
-\newcount\thisrun
-\def\affiliation{\global\advance\thisrun
-by 1
-\mostrecentemail=\emailnumber\relax
-\setbox\thisrun=\vbox{\doloopnow}
-\global\emailnumber=0
-\saveaffiliation}
-
-\newcount\loopnum
-\def\affils@present@group#1{\global\advance\loopnum by1
-\begingroup \def \AF@temp {#1}
-\@tempcnta \z@ \let \AU@opr \@undefined 
-\let \CO@opr \@undefined 
-\def \AF@opr {\@affilID@count \AF@temp \@tempcnta }
-\@AAC@list \@ifnum {\@tempcnta =\z@ }{}{\begingroup
-\frontmatter@above@affilgroup  
-\set@listcomma@count \@tempcnta \let \AU@opr \@undefined \let \CO@opr \@undefined 
-\def \AF@opr {\@affilID@match \AF@temp }\@AAC@list \endgroup 
-\begingroup \par \frontmatter@above@affiliation \frontmatter@affiliationfont 
-\let \\\frontmatter@addressnewline \@tempcnta \z@ \@tfor \AF@temp :=#1\do 
-{\expandafter \@ifx \expandafter {\expandafter \z@ \AF@temp }{}{\advance \@tempcnta \@ne }}
-\@ifnum {\@tempcnta =\tw@ }{\let \@listcomma \relax }{}\def@after@address \runinaddress@sw {}
-{\tightenlines@sw {}{\parskip \z@ }\appdef \after@address \par }\let \AFF@opr \@affil@group 
-\do@affil@fromgroup \@AFF@list #1\relax
-\endgroup\copy\loopnum}\par\global\emailnumber=0 \endgroup}
-
-\def\doloopnow{\loopemailnumber=1
-\noindent\vtop{\centering
-\advance\rightskip1in
- \parindent0pt\relax
-\it
-\loop
-\ifnum\loopemailnumber<\mostrecentemail
-\expandafter\csname email\the\loopemailnumber\endcsname, 
-\global\advance\loopemailnumber by 1
-\repeat
-\expandafter\csname
-email\the\loopemailnumber\endcsname\ifnum\mostrecentemail>2\vskip12pt\fi}}
-
-\fi
-
-\parindent=36pt
-
-
-\def\frontmatter@thefootnote{%
- \altaffilletter@sw{\@alph}{\@fnsymbol}{\csname c@\@mpfn\endcsname}%
-}%
-
-
-\def\@author@present@group#1#2#3{%
-  \gdef\comma@space{\gdef\comma@space{\textsuperscript{,\,}}}%
-  \doauthor{#2}{#3}{\@affil@present@group}%
-  \advance\@tempcnta\m@ne
-}%
-
-\def\@affil@present@group{%
- \aftergroup\false@sw
-}%
-
-\def\preprint#1{\def\thepreprint{#1}}
-\let\thepreprint\relax
-
-\def\figurename{Fig.}
-\def\tablename{Table}
-
-\def\altaffiliation#1{\thanks{#1}}
-
-\def\thetable{\@arabic\c@table}
 \endinput
-%\frontmatter@thanks
+
+
+
+
+
+
+
+
 
 
 

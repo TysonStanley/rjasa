@@ -1,12 +1,12 @@
 ---
-title: RMarkdown for a JASA-EL submission
-runningtitle: JASA-EL RMarkdown     # Six words or less. No acronyms allowed.
+title: RMarkdown for a JASA submission
+runningtitle: JASA RMarkdown     # Six words or less. No acronyms allowed.
 author:
 - name: First Author
   affil: 
   - location: "Department of Communication, University1"   # two affiliations for the first author
   - location: "National Center for Research"
-  corr: 1                                                  # only one author can be corresponding
+  corr: 1                           # only one author can be corresponding
 - name: Second Author
   affil: 
   - location: "Department of Communication, University1"
@@ -15,18 +15,18 @@ author:
   - location: "Department of Statistics, University2"
 email: correspondingauthor@uni.edu
 abstract: |
-  Put your abstract here. Abstracts are limited to 100 words for JASA-EL articles. Please no personal pronouns, also please do not use the words “new” and/or “novel” in the abstract. An article usually includes an abstract, a concise summary of the work covered at length in the main body of the article.
+  Put your abstract here. Abstracts are limited to 200 words for regular articles and 100 words for Letters to the Editor. Please no personal pronouns, also please do not use the words "new" and/or "novel" in the abstract. An article usually includes an abstract, a concise summary of the work covered at length in the main body of the article. 
 keywords: "keywords"              # Six words/short phrases signifying the main ideas
 bibliography: bibfile
 bibliographystyle: jasaauthyear2
 output:
-  rjasa::jasa_el_article:
+  rjasa::jasa_article:
     keep_tex: yes
 ---
 
 # Background on the Template {-}
 
-This template provides the formatting for a JASA-EL submission. Required elements of the above `yaml` are:
+This template provides the formatting for a JASA submission. Required elements of the above `yaml` are:
 
 * `title`: Title
 * `runningtitle`: The running head (a short version of the title)
@@ -35,13 +35,15 @@ This template provides the formatting for a JASA-EL submission. Required element
 * `abstract`: Limited to 100 words
 * `bibliography`: BibTeX `.bib` file
 * `bibliographystyle`: jasaauthyear2 (full author citation) or jasanum2 (citations as numbers)
-  
-\noindent All of the rest of the document is just like regular RMarkdown syntax (with the occassional use of \LaTeX code). Some other notable things that JASA-EL requires:
+
+\noindent The `classoption` can be `preprint` or `reprint` and can be used to control citation type with `NumberedRefs` or if the lines are numbered with `TurnOnLineNumbers`. All of the rest of the document is just like regular RMarkdown syntax (with the occassional use of \LaTeX code). Some other notable things that JASA-EL requires:
 
 1. Acknowledgments after the text of the article but before footnotes and references.
 2. Textual footnotes (allowed only if the paper cites references by author name and year of publication).
 3. References (if the paper cites references by labeling them with numbers according to the order in which they appear, this section will also include textual footnotes).
-4. Tables, each on a separate page, and each with a caption that is placed above the table.
+4. Tables, each on a separate page, and each with a caption that is placed above the table. (Use `\begin{ruledtabular}...\end{ruledtabular}` to spread the table
+out to the width of the column or page, and to add two lines at the top and bottom of the table. This is generally helpful, but multicolumn doesn't work well in the `ruledtabular` environment. If you need to use the `\multicolumn` command you should not use `ruledtabular`, but instead type in `\hline\hline... table...\hline\hline`
+so that there are still two lines at the top and bottom of the table.)
 5. Collected figure captions.
 6. If the manuscript is submitted in PDF form, the final pages of the uploaded manuscript can include the figures, each on a separate page, and each in PDF format. However, each figure must be submitted in a separate file as described in 6.2 below.
 7. Figures can be in TIFF, EPS, PS, or JPEG format.

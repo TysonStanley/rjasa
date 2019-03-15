@@ -1,6 +1,6 @@
-#' JASA-EL Journal format.
+#' JASA Journal format.
 #'
-#' Format for creating submissions to JASA Journals. Based on the official JASA-EL journal class.
+#' Format for creating submissions to JASA Journals. Based on the official JASA journal class.
 #'
 #' @inheritParams rmarkdown::pdf_document
 #' @param ... Additional arguments to \code{rmarkdown::pdf_document}
@@ -31,9 +31,11 @@
 #' }
 #'
 #' @export
-jasa_el_article <- function(..., highlight = NULL, citation_package = "natbib") {
+jasa_article <- function(..., highlight = NULL, citation_package = "natbib") {
   inherit_pdf_document(...,
-                       template = find_resource("jasa_el", "template.tex"),
+                       template = find_resource("jasa", "template.tex"),
                        highlight = highlight,
                        citation_package = citation_package)
 }
+
+
