@@ -1,18 +1,17 @@
 ---
 title: A demonstration of the \LaTeX class file for JASA-EL manuscripts with Rmarkdown
-runningtitle: JASA-EL RMarkdown
+runningtitle: JASA-EL RMarkdown     # Six words or less. No acronyms allowed.
 author:
 - name: First Author
   affil: "Department of Communication, University1"
-  corr: 1
+  corr: 1                           # only one author can be corresponding
 - name: Second Author
   affil: "Department of Communication, University1"
 - name: Third Auther
   affil: "Department of Statistics, University2"
-corrauth: "Corresponding author name, This is sample corresponding address."
-email: correspondingauthor@protonmail.com
+email: correspondingauthor@uni.edu
 abstract: "Put your abstract here. Abstracts are limited to 100 words for JASA-EL articles. Please no personal pronouns, also please do not use the words “new” and/or “novel” in the abstract. An article usually includes an abstract, a concise summary of the work covered at length in the main body of the article."
-keywords: "keywords"
+keywords: "keywords"              # Six words/short phrases signifying the main ideas
 bibliography: bibfile
 bibliographystyle: jasaauthyear2
 output:
@@ -20,27 +19,37 @@ output:
     keep_tex: yes
 ---
 
-<!--
-This is a comment in RMarkdown
+## Background on the Template
 
-Background:
-  Required elements of the above `yaml` are:
+This template provides the formatting for a JASA-EL submission.
 
-  * `title`: Title
-  * `runningtitle`: The running head (a short version of the title)
-  * `author`: List of author(s) containing `name` and `affil` (the affiliation of each author)
-  * `corrauth`: Corresponding author's name and address.
-  * `email`: Correspondence email
-  * `abstract`: Limited to 200 words
-  * `bibliography`: BibTeX `.bib` file
-  * `bibliographystyle`: jasaauthyear2 or jasanum2
+Required elements of the above `yaml` are:
+
+* `title`: Title
+* `runningtitle`: The running head (a short version of the title)
+* `author`: List of author(s) containing `name` (full names), `affil` (the affiliation of each author), and a single `corr` for the corresponding author
+* `email`: Correspondence email
+* `abstract`: Limited to 100 words
+* `bibliography`: BibTeX `.bib` file
+* `bibliographystyle`: jasaauthyear2 (full author citation) or jasanum2 (citations as numbers)
   
-  All of the rest of the document is just like regular RMarkdown syntax (with the occassional use of \LaTeX code).
--->
+All of the rest of the document is just like regular RMarkdown syntax (with the occassional use of \LaTeX code).
+
+Some other notable things that JASA-EL requires:
+
+1. Acknowledgments after the text of the article but before footnotes and references.
+2. Textual footnotes (allowed only if the paper cites references by author name and year of publication).
+3. References (if the paper cites references by labeling them with numbers according to the order in which they appear, this section will also include textual footnotes).
+4. Tables, each on a separate page, and each with a caption that is placed above the table.
+5. Collected figure captions.
+6. If the manuscript is submitted in PDF form, the final pages of the uploaded manuscript can include the figures, each on a separate page, and each in PDF format. However, each figure must be submitted in a separate file as described in 6.2 below.
+7. Figures can be in TIFF, EPS, PS, or JPEG format.
 
 # Introduction
 
-Start your document here, briefly introducing the topic at hand.
+Start your document here, briefly introducing the topic at hand. JASA recommends:
+
+> The length of a JASA-EL paper is restricted to six pages in the final format. (This is approximately equivalent to a four-page article in the Journal of the Acoustical Society of America.) To calculate a rough estimate of the published length of a manuscript, add one-half of the number of manuscript pages and one-half of the number of figures.
 
 # Methods
 
