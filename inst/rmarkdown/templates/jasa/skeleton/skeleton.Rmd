@@ -51,7 +51,7 @@ Feel free to erase all of this background section at any point :)
 
 # Introduction
 
-Start your document here, briefly introducing the topic at hand. JASA recommends: "The length of a JASA-EL paper is restricted to six pages in the final format. (This is approximately equivalent to a four-page article in the Journal of the Acoustical Society of America.) To calculate a rough estimate of the published length of a manuscript, add one-half of the number of manuscript pages and one-half of the number of figures."
+Start your document here, briefly introducing the topic at hand. See the [author checklist](https://asa.scitation.org/pb-assets/files/publications/jas/JASA_AuthorChecklist-1508440990393.pdf) for recommended procedures for submission.
 
 # Methods
 
@@ -59,7 +59,7 @@ Report all the methods so someone could completely reproduce the results.
 
 # Results
 
-Provide the results, clearly and concisely. Can include tables and figures here, within the constraints of the page limits for JASA-EL.
+Provide the results, clearly and concisely. Can include tables and figures here.
 
 # Discussion
 
