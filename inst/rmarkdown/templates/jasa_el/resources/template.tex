@@ -74,15 +74,12 @@ $preamble$
 
 $for(author)$
  \author{$author.name$}
-
  $if(author.corr)$
   \correspondingauthor
  $endif$
-
  $for(author.affil)$
   \affiliation{$author.affil.location$}
  $endfor$
-
  $if(author.email)$
   \email{$author.email$}
  $endif$

@@ -1,6 +1,7 @@
 ---
 title: RMarkdown for a JASA submission
 runningtitle: JASA RMarkdown     # Six words or less. No acronyms allowed.
+classoption: preprint
 author:
 - name: First Author
   affil: 
@@ -30,12 +31,11 @@ This template provides the formatting for a JASA submission. Required elements o
 * `title`: Title
 * `runningtitle`: The running head (a short version of the title)
 * `author`: List of author(s) containing `name` (full names), `affil` (the affiliation of each author), and a single `email` for the corresponding author
-* 
 * `abstract`: Limited to 100 words
 * `bibliography`: BibTeX `.bib` file
 * `bibliographystyle`: jasaauthyear2 (full author citation) or jasanum2 (citations as numbers)
 
-\noindent The `classoption` can be `preprint` or `reprint` and can be used to control citation type with `NumberedRefs` or if the lines are numbered with `TurnOnLineNumbers`. All of the rest of the document is just like regular RMarkdown syntax (with the occassional use of \LaTeX code). Some other notable things that JASA-EL requires:
+\noindent The `classoption` can be `preprint` or `reprint` and can be used to control citation type with `NumberedRefs` or if the lines are numbered with `TurnOnLineNumbers`. All of the rest of the document is just like regular RMarkdown syntax (with the occassional use of \LaTeX code). Some other notable things that JASA requires:
 
 1. Acknowledgments after the text of the article but before footnotes and references.
 2. Textual footnotes (allowed only if the paper cites references by author name and year of publication).
