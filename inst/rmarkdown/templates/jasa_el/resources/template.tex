@@ -82,6 +82,11 @@ $for(author)$
  $for(author.affil)$
   \affiliation{$author.affil.location$}
  $endfor$
+
+ $if(author.email)$
+  \email{$author.email$}
+ $endif$
+
 $endfor$
 
 $if(email)$

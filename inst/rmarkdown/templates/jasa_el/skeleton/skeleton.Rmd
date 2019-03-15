@@ -7,13 +7,13 @@ author:
   - location: "Department of Communication, University1"   # two affiliations for the first author
   - location: "National Center for Research"
   corr: 1                                                  # only one author can be corresponding
+  email: correspondingauthor@uni.edu
 - name: Second Author
   affil: 
   - location: "Department of Communication, University1"
-- name: Third Auther
+- name: Third Author
   affil: 
   - location: "Department of Statistics, University2"
-email: correspondingauthor@uni.edu
 abstract: |
   Put your abstract here. Abstracts are limited to 100 words for JASA-EL articles. Please no personal pronouns, also please do not use the words “new” and/or “novel” in the abstract. An article usually includes an abstract, a concise summary of the work covered at length in the main body of the article.
 keywords: "keywords"              # Six words/short phrases signifying the main ideas

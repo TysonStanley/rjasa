@@ -2,3 +2,6 @@
 ^README\.Rmd$
 ^rjasa\.Rproj$
 ^\.Rproj\.user$
+^JASA-EL-Docs\.pdf$
+^JASAdocs\.pdf$
+^docs$

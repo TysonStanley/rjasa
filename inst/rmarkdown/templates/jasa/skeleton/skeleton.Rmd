@@ -6,14 +6,13 @@ author:
   affil: 
   - location: "Department of Communication, University1"   # two affiliations for the first author
   - location: "National Center for Research"
-  corr: 1                           # only one author can be corresponding
+  email: correspondingauthor@uni.edu
 - name: Second Author
   affil: 
   - location: "Department of Communication, University1"
-- name: Third Auther
+- name: Third Author
   affil: 
   - location: "Department of Statistics, University2"
-email: correspondingauthor@uni.edu
 abstract: |
   Put your abstract here. Abstracts are limited to 200 words for regular articles and 100 words for Letters to the Editor. Please no personal pronouns, also please do not use the words "new" and/or "novel" in the abstract. An article usually includes an abstract, a concise summary of the work covered at length in the main body of the article. 
 keywords: "keywords"              # Six words/short phrases signifying the main ideas
@@ -30,8 +29,8 @@ This template provides the formatting for a JASA submission. Required elements o
 
 * `title`: Title
 * `runningtitle`: The running head (a short version of the title)
-* `author`: List of author(s) containing `name` (full names), `affil` (the affiliation of each author), and a single `corr` for the corresponding author
-* `email`: Correspondence email
+* `author`: List of author(s) containing `name` (full names), `affil` (the affiliation of each author), and a single `email` for the corresponding author
+* 
 * `abstract`: Limited to 100 words
 * `bibliography`: BibTeX `.bib` file
 * `bibliographystyle`: jasaauthyear2 (full author citation) or jasanum2 (citations as numbers)
