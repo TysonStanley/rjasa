@@ -1,5 +1,5 @@
 ---
-title: A demonstration of the \LaTeX class file for JASA-EL manuscripts with Rmarkdown
+title: RMarkdown for a JASA-EL submission
 runningtitle: JASA-EL RMarkdown     # Six words or less. No acronyms allowed.
 author:
 - name: First Author
@@ -20,11 +20,9 @@ output:
     keep_tex: yes
 ---
 
-## Background on the Template
+# Background on the Template {-}
 
-This template provides the formatting for a JASA-EL submission.
-
-Required elements of the above `yaml` are:
+This template provides the formatting for a JASA-EL submission. Required elements of the above `yaml` are:
 
 * `title`: Title
 * `runningtitle`: The running head (a short version of the title)
@@ -34,9 +32,7 @@ Required elements of the above `yaml` are:
 * `bibliography`: BibTeX `.bib` file
 * `bibliographystyle`: jasaauthyear2 (full author citation) or jasanum2 (citations as numbers)
   
-All of the rest of the document is just like regular RMarkdown syntax (with the occassional use of \LaTeX code).
-
-Some other notable things that JASA-EL requires:
+\noindent All of the rest of the document is just like regular RMarkdown syntax (with the occassional use of \LaTeX code). Some other notable things that JASA-EL requires:
 
 1. Acknowledgments after the text of the article but before footnotes and references.
 2. Textual footnotes (allowed only if the paper cites references by author name and year of publication).
@@ -46,22 +42,22 @@ Some other notable things that JASA-EL requires:
 6. If the manuscript is submitted in PDF form, the final pages of the uploaded manuscript can include the figures, each on a separate page, and each in PDF format. However, each figure must be submitted in a separate file as described in 6.2 below.
 7. Figures can be in TIFF, EPS, PS, or JPEG format.
 
+Feel free to erase all of this background section at any point :)
+
 # Introduction
 
-Start your document here, briefly introducing the topic at hand. JASA recommends:
-
-> The length of a JASA-EL paper is restricted to six pages in the final format. (This is approximately equivalent to a four-page article in the Journal of the Acoustical Society of America.) To calculate a rough estimate of the published length of a manuscript, add one-half of the number of manuscript pages and one-half of the number of figures.
+Start your document here, briefly introducing the topic at hand. JASA recommends: "The length of a JASA-EL paper is restricted to six pages in the final format. (This is approximately equivalent to a four-page article in the Journal of the Acoustical Society of America.) To calculate a rough estimate of the published length of a manuscript, add one-half of the number of manuscript pages and one-half of the number of figures."
 
 # Methods
 
-Report all those methods so someone could completely reproduce the results.
+Report all the methods so someone could completely reproduce the results.
 
 # Results
 
-Provide the results, clearly, concisely, and beautifully.
+Provide the results, clearly and concisely. Can include tables and figures here, within the constraints of the page limits for JASA-EL.
 
 # Discussion
 
-The discussion of the results is how we will finish this thing off.
+The discussion of the results goes here, incorporating the results into the broader literature.
 
 
