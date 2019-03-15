@@ -1,10 +1,12 @@
 Package: rjasa
 Title: RMarkdown Template for JASA Journals
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: person("Tyson", "Barrett", email = "t.barrett@aggiemail.usu.edu", role = c("aut", "cre"))
-Description: RMarkdown Template for JASA Journals.
+Description: RMarkdown Template for JASA and JASA-EL. It provides the current (2019) LaTex template
+  provided by the ASA.
 Imports: rmarkdown,
-         knitr
+         knitr,
+         yaml
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

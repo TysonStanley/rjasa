@@ -31,4 +31,6 @@ remotes::install_github("tysonstanley/rjasa")
 
 Using the template, `rjasa` will provide a `.tex` file and a nicely formatted `.pdf` file. This package is still under active development.
 
+The title page of the template Rmarkdown for JASA-EL looks like the following figure:
+
 ![Example1](inst/example1.png)
