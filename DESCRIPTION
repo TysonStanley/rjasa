@@ -1,9 +1,10 @@
 Package: rjasa
 Title: RMarkdown Template for JASA Journals
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Tyson", "Barrett", email = "t.barrett@aggiemail.usu.edu", role = c("aut", "cre"))
-Description: RMarkdown Template for JASA and JASA-EL. It provides the current (2019) LaTex template
-  provided by the ASA.
+Description: RMarkdown Template for the Journal of the Acoustical Society of America (JASA)
+  and JASA-Express Letters. It works similarly to many templates in the `rticles` package.
+  It provides the current (as of 2019) LaTex templates provided by the ASA.
 Imports: rmarkdown,
          knitr,
          yaml
